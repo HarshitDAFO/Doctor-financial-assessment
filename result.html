@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assessment Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("/static/coveryou_logo.png");
+            background-size: 40%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 40px;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 900px;
+            margin: auto;
+        }
+        h1, h2 {
+            color: #e74c3c;
+            text-align: center;
+        }
+        .result-row {
+            margin: 10px 0;
+        }
+        .green { color: green; }
+        .red { color: red; }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            height: 60px;
+        }
+        .note {
+            background: #fef9e7;
+            padding: 15px;
+            border: 1px solid #f7dc6f;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="/static/coveryou_logo.png" alt="Cover You Logo">
+        </div>
+        <h1>Assessment Result</h1>
+        {% for r in responses %}
+            <div class="result-row">
+                <strong>{{ loop.index }}. {{ r.question }}</strong><br>
+                Answer: <strong>{{ r.answer.upper() }}</strong> — 
+                <span class="{{ r.color }}">
+                    {{ '+' if r.score > 0 else '-' }}{{ r.score }}%
+                </span>
+            </div>
+        {% endfor %}
+
+        <hr>
+        <h2>Cover You's Doctor's Financial Assessment Score: {{ total_score }}%</h2>
+
+        <div class="note">
+            <h3 style="color:#d35400;">Life Insurance Recommendation for Doctors by Age Group</h3>
+            <ul>
+                <li><strong>30–35:</strong> ₹1–2 Cr Term Plan – Early career, low premium, cover loans & new family.</li>
+                <li><strong>35–40:</strong> ₹2–3 Cr Term Plan – Higher income & liabilities, protect family future.</li>
+                <li><strong>40–45:</strong> ₹2–4 Cr Term Plan – Children’s education, peak earnings, consider riders.</li>
+                <li><strong>45–50:</strong> ₹1.5–3 Cr Term or Whole Life – Health risks increase, plan for retirement.</li>
+                <li><strong>50–55:</strong> ₹1–2 Cr Whole Life/Annuity Plans – Focus on legacy, spouse security.</li>
+                <li><strong>55–60:</strong> ₹50L–1.5 Cr Whole Life – Estate planning, final expenses.</li>
+                <li><strong>60+:</strong> Depends on needs – Final expense cover or estate transfer.</li>
+            </ul>
+        </div>
+
+        {% if not download_mode %}
+        <form method="POST" action="/download">
+            <input type="hidden" name="responses" value="{{ responses }}">
+            <input type="hidden" name="total_score" value="{{ total_score }}">
+            <button type="submit">Download Report as PDF</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
