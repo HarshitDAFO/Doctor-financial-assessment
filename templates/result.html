@@ -371,97 +371,45 @@
         </div>
         
         <div class="results-container">
-            <div class="score-section">
-                <div class="score-title">Cover You's Doctor's Financial Assessment Score</div>
-                <div class="score-value">50%</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 50%"></div>
-                </div>
-                <div class="financial-health-indicator">
-                    <span class="health-icon health-fair">⚠️</span>
-                    <span class="score-interpretation">
-                        <strong>Fair Financial Health</strong> - Your financial foundation needs attention. 
-                        There are key areas for improvement to secure your family's future.
-                    </span>
-                </div>
-            </div>
+  <div class="score-section">
+    <div class="score-title">Cover You's Doctor's Financial Assessment Score</div>
+    <div class="score-value">{{ total_score }}%</div>
+    <div class="progress-bar">
+      <div class="progress-fill" style="width: {{ total_score }}%"></div>
+    </div>
+    <div class="financial-health-indicator">
+      {% if total_score >= 80 %}
+        <span class="health-icon health-excellent">✅</span>
+        <span class="score-interpretation"><strong>Excellent Financial Health</strong> – You’re on a great path. Maintain this discipline.</span>
+      {% elif total_score >= 60 %}
+        <span class="health-icon health-good">👍</span>
+        <span class="score-interpretation"><strong>Good Financial Health</strong> – A few improvements can strengthen your future.</span>
+      {% elif total_score >= 40 %}
+        <span class="health-icon health-fair">⚠️</span>
+        <span class="score-interpretation"><strong>Fair Financial Health</strong> – Your financial foundation needs attention.</span>
+      {% else %}
+        <span class="health-icon health-poor">❗</span>
+        <span class="score-interpretation"><strong>Poor Financial Health</strong> – It’s time to take immediate steps to improve.</span>
+      {% endif %}
+    </div>
+  </div>
 
-            <div class="answers-section">
-                <h2 class="section-title">📋 Your Assessment Breakdown</h2>
-                
-                <div class="answer-card">
-                    <div class="question-text">1. Do you have a Life Insurance cover for at least 15 - 20 times of your income?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-yes">YES</span>
-                        <span class="score-impact">+20%</span>
-                    </div>
-                </div>
+  <div class="answers-section">
+    <h2 class="section-title">📋 Your Assessment Breakdown</h2>
 
-                <div class="answer-card">
-                    <div class="question-text">2. Do you have health insurance for yourself and all your dependents?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-no">NO</span>
-                        <span class="score-impact">-0%</span>
-                    </div>
-                </div>
-
-                <div class="answer-card">
-                    <div class="question-text">3. Do you have any personal loans or any unsecured loans?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-no">NO</span>
-                        <span class="score-impact">+10%</span>
-                    </div>
-                </div>
-
-                <div class="answer-card">
-                    <div class="question-text">4. Do you create a budget for your income?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-no">NO</span>
-                        <span class="score-impact">-0%</span>
-                    </div>
-                </div>
-
-                <div class="answer-card">
-                    <div class="question-text">5. Have you calculated the corpus needed for you to retire comfortably?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-no">NO</span>
-                        <span class="score-impact">-0%</span>
-                    </div>
-                </div>
-
-                <div class="answer-card">
-                    <div class="question-text">6. Is your Monthly EMI more than 40% of your monthly take home pay?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-yes">YES</span>
-                        <span class="score-impact">-0%</span>
-                    </div>
-                </div>
-
-                <div class="answer-card">
-                    <div class="question-text">7. Do you have any Retirement Plan?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-yes">YES</span>
-                        <span class="score-impact">+10%</span>
-                    </div>
-                </div>
-
-                <div class="answer-card">
-                    <div class="question-text">8. Have you done planning for your child's education and marriage?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-yes">YES</span>
-                        <span class="score-impact">+10%</span>
-                    </div>
-                </div>
-
-                <div class="answer-card">
-                    <div class="question-text">9. In case of any unfortunate event, do you feel your family is financially protected?</div>
-                    <div class="answer-row">
-                        <span class="answer-value answer-no">NO</span>
-                        <span class="score-impact">-0%</span>
-                    </div>
-                </div>
-            </div>
-
+    {% for r in responses %}
+    <div class="answer-card">
+      <div class="question-text">{{ loop.index }}. {{ r.question }}</div>
+      <div class="answer-row">
+        <span class="answer-value answer-{{ r.answer }}">{{ r.answer.upper() }}</span>
+        <span class="score-impact">
+          {% if r.score > 0 %}+{{ r.score }}%{% else %}-0%{% endif %}
+        </span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
             <div class="recommendations-section">
                 <h2 class="recommendations-title">💡 Life Insurance Recommendation for Doctors by Age Group</h2>
                 
