@@ -10,7 +10,7 @@ questions = [
     {"text": "Do you have health insurance for yourself and all your dependents?", "yes_score": 10, "no_score": 0},
     {"text": "Do you have any personal loans or any unsecured loans?", "yes_score": 0, "no_score": 10},
     {"text": "Do you create a budget for your income?", "yes_score": 8, "no_score": 0},
-    {"text": "Have you calculated the corpus needed for you to retire comfortably?", "yes_score": 12, "no_score": 0},
+    {"text": "Have you calculated the retirement corpus you'll need to retire comfortably", "yes_score": 12, "no_score": 0},
     {"text": "Is your Monthly EMI more than 40% of your monthly take home pay?", "yes_score": 0, "no_score": 10},
     {"text": "Do you have any Retirement Plan?", "yes_score": 10, "no_score": 0},
     {"text": "Have you done planning for your child's education and marriage?", "yes_score": 10, "no_score": 0},
